@@ -1,0 +1,2214 @@
+{
+  "created_utc": "2026-09-26T11:15:26.142414+00:00",
+  "scope": "Integration smoke test on 5 public fixtures / 20 labels, not a held-out benchmark.",
+  "hardware": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "device": "mps",
+    "requested_device": "mps",
+    "threads": 4,
+    "mps_available": true
+  },
+  "versions": {
+    "torch": "2.14.0",
+    "torchvision": "0.29.0",
+    "transformers": "5.17.0",
+    "huggingface_hub": "1.33.0",
+    "pillow": "12.3.0",
+    "laya": "0.3.20"
+  },
+  "models": {
+    "laya": {
+      "repo": "convaiinnovations/laya",
+      "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+      "subfolder": "multilingual",
+      "weight_sha256": "9d628fd971b700382ac6f65920a86f149777b2e748e0c955fb3b19695aa8f204",
+      "download_endpoint": "https://hf-mirror.com"
+    },
+    "blip": {
+      "repo": "Salesforce/blip-image-captioning-base",
+      "revision": "82a37760796d32b1411fe092ab5d4e227313294b",
+      "subfolder": null,
+      "weight_sha256": "d6638651a5526cc2ede56f2b5104d6851b0755816d220e5e046870430180c767",
+      "download_endpoint": "https://hf-mirror.com"
+    }
+  },
+  "language": "zh",
+  "questions": {
+    "category": {
+      "type": "choice",
+      "instructions": "图像中的主要主体是什么？",
+      "criteria": {
+        "person": "人物",
+        "animal": "动物",
+        "food": "食物或饮料",
+        "other": "其他东西"
+      }
+    },
+    "person": {
+      "type": "noul",
+      "instructions": "图像中有人吗？"
+    },
+    "animal": {
+      "type": "noul",
+      "instructions": "图像中有动物吗？"
+    },
+    "people": {
+      "type": "score",
+      "instructions": "图像中有多少人？",
+      "criteria": [
+        "没有人",
+        "一个人",
+        "两个人或更多人"
+      ]
+    }
+  },
+  "laya_load_ms": 3671.7713749967515,
+  "warmup_includes_blip_load": true,
+  "warmup": {
+    "mode": "caption_bridge",
+    "caption": "a young man in an orange space suit holding a helmet",
+    "model_id": "./downloads/vision-models/blip",
+    "state": "Image description: a young man in an orange space suit holding a helmet",
+    "probability_scope": "text_surrogate_only",
+    "caption_generation": "autoregressive",
+    "end_to_end_single_pass": false,
+    "usage_scope": "laya_text_stage_only",
+    "image": {
+      "width": 512,
+      "height": 512,
+      "mode": "RGB"
+    },
+    "timings_ms": {
+      "image_prepare": 4.641292151063681,
+      "caption": 910.6397498399019,
+      "laya": 44.60858320817351,
+      "total": 959.8896251991391
+    }
+  },
+  "summary": {
+    "vision": {
+      "correct": 17,
+      "total": 20,
+      "accuracy": 0.85,
+      "by_question": {
+        "category": 1.0,
+        "person": 1.0,
+        "animal": 1.0,
+        "people": 0.4
+      }
+    },
+    "oracle": {
+      "correct": 14,
+      "total": 20,
+      "accuracy": 0.7,
+      "by_question": {
+        "category": 1.0,
+        "person": 0.8,
+        "animal": 0.6,
+        "people": 0.4
+      }
+    },
+    "mismatch": {
+      "correct": 7,
+      "total": 20,
+      "accuracy": 0.35,
+      "by_question": {
+        "category": 0.2,
+        "person": 0.2,
+        "animal": 0.6,
+        "people": 0.4
+      }
+    },
+    "no_visual": {
+      "correct": 10,
+      "total": 20,
+      "accuracy": 0.5,
+      "by_question": {
+        "category": 0.4,
+        "person": 0.6,
+        "animal": 0.6,
+        "people": 0.4
+      }
+    }
+  },
+  "timings_ms": {
+    "image_prepare": {
+      "median": 3.2572089694440365,
+      "min": 0.9322499390691519,
+      "max": 5.157291190698743
+    },
+    "caption": {
+      "median": 204.42333398386836,
+      "min": 162.80074999667704,
+      "max": 246.2182908784598
+    },
+    "laya": {
+      "median": 43.976749991998076,
+      "min": 34.285166999325156,
+      "max": 47.05129214562476
+    },
+    "total": {
+      "median": 249.3323339149356,
+      "min": 201.04983309283853,
+      "max": 296.5267919935286
+    }
+  },
+  "cases": [
+    {
+      "image": "astronaut.png",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.997,
+              "animal": 0.0006,
+              "food": 0.0002,
+              "other": 0.0022
+            },
+            "confidence": 0.9835,
+            "answer_confidence": 0.997,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.839,
+            "confidence": 0.839,
+            "answer_confidence": 0.839,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0332,
+            "confidence": 0.9668,
+            "answer_confidence": 0.9668,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.4322,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0205,
+              "1": 0.5267,
+              "2": 0.4527
+            },
+            "confidence": 0.2934,
+            "answer_confidence": 0.5267,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a young man in an orange space suit holding a helmet",
+          "model_id": "./downloads/vision-models/blip",
+          "state": "Image description: a young man in an orange space suit holding a helmet",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "autoregressive",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 3.2572089694440365,
+            "caption": 246.2182908784598,
+            "laya": 47.05129214562476,
+            "total": 296.5267919935286
+          }
+        }
+      },
+      "vision_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": true
+        }
+      },
+      "oracle_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.9991,
+              "animal": 0.0001,
+              "food": 0.0001,
+              "other": 0.0007
+            },
+            "confidence": 0.9947,
+            "answer_confidence": 0.9991,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.4953,
+            "confidence": 0.5047,
+            "answer_confidence": 0.5047,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0001,
+            "confidence": 0.9999,
+            "answer_confidence": 0.9999,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1978,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0246,
+              "1": 0.753,
+              "2": 0.2224
+            },
+            "confidence": 0.4182,
+            "answer_confidence": 0.753,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 194,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "A photograph of one woman wearing an orange astronaut space suit.",
+          "model_id": null,
+          "state": "Image description: A photograph of one woman wearing an orange astronaut space suit.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 3.0792912002652884,
+            "caption": 0.0009168870747089386,
+            "laya": 35.47912510111928,
+            "total": 38.55933318845928
+          }
+        }
+      },
+      "oracle_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "person",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": false,
+          "animal": true,
+          "people": true
+        }
+      },
+      "mismatch_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "animal",
+            "probabilities": {
+              "person": 0.0003,
+              "animal": 0.999,
+              "food": 0.0002,
+              "other": 0.0005
+            },
+            "confidence": 0.9933,
+            "answer_confidence": 0.999,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.4445,
+            "confidence": 0.5555,
+            "answer_confidence": 0.5555,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.9573,
+            "confidence": 0.9573,
+            "answer_confidence": 0.9573,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1155,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.106,
+              "1": 0.6726,
+              "2": 0.2214
+            },
+            "confidence": 0.2368,
+            "answer_confidence": 0.6726,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 166,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a cat with green eyes",
+          "model_id": null,
+          "state": "Image description: a cat with green eyes",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.09374995715916157,
+            "caption": 0.0012498348951339722,
+            "laya": 32.06450003199279,
+            "total": 32.15949982404709
+          }
+        }
+      },
+      "mismatch_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": false,
+          "animal": false,
+          "people": true
+        }
+      },
+      "no_visual_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.4588,
+              "animal": 0.0273,
+              "food": 0.0566,
+              "other": 0.4574
+            },
+            "confidence": 0.296,
+            "answer_confidence": 0.4588,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0665,
+            "confidence": 0.9335,
+            "answer_confidence": 0.9335,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0043,
+            "confidence": 0.9957,
+            "answer_confidence": 0.9957,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1045,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0794,
+              "1": 0.7366,
+              "2": 0.1839
+            },
+            "confidence": 0.3285,
+            "answer_confidence": 0.7366,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 170,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "No visual description is available.",
+          "model_id": null,
+          "state": "Image description: No visual description is available.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.09424984455108643,
+            "caption": 0.001334119588136673,
+            "laya": 34.26116588525474,
+            "total": 34.356749849393964
+          }
+        }
+      },
+      "no_visual_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "person",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": false,
+          "animal": true,
+          "people": true
+        }
+      }
+    },
+    {
+      "image": "camera.png",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.9913,
+              "animal": 0.0013,
+              "food": 0.0007,
+              "other": 0.0066
+            },
+            "confidence": 0.9597,
+            "answer_confidence": 0.9913,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.6997,
+            "confidence": 0.6997,
+            "answer_confidence": 0.6997,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0031,
+            "confidence": 0.9969,
+            "answer_confidence": 0.9969,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.3286,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0589,
+              "1": 0.5536,
+              "2": 0.3875
+            },
+            "confidence": 0.2159,
+            "answer_confidence": 0.5536,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a man in a suit taking a picture of a building",
+          "model_id": "./downloads/vision-models/blip",
+          "state": "Image description: a man in a suit taking a picture of a building",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "autoregressive",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 2.940957900136709,
+            "caption": 243.33283305168152,
+            "laya": 46.293791849166155,
+            "total": 292.5675828009844
+          }
+        }
+      },
+      "vision_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": true
+        }
+      },
+      "oracle_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.9476,
+              "animal": 0.0041,
+              "food": 0.0026,
+              "other": 0.0457
+            },
+            "confidence": 0.8342,
+            "answer_confidence": 0.9476,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.5692,
+            "confidence": 0.5692,
+            "answer_confidence": 0.5692,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0007,
+            "confidence": 0.9993,
+            "answer_confidence": 0.9993,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.2159,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0335,
+              "1": 0.717,
+              "2": 0.2494
+            },
+            "confidence": 0.364,
+            "answer_confidence": 0.717,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 210,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "A black and white photograph of one man standing behind a camera on a tripod.",
+          "model_id": null,
+          "state": "Image description: A black and white photograph of one man standing behind a camera on a tripod.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 2.6296249125152826,
+            "caption": 0.0007909256964921951,
+            "laya": 36.184709053486586,
+            "total": 38.81512489169836
+          }
+        }
+      },
+      "oracle_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": true
+        }
+      },
+      "mismatch_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "food",
+            "probabilities": {
+              "person": 0.0004,
+              "animal": 0.0004,
+              "food": 0.9945,
+              "other": 0.0048
+            },
+            "confidence": 0.9734,
+            "answer_confidence": 0.9945,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0167,
+            "confidence": 0.9833,
+            "answer_confidence": 0.9833,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0022,
+            "confidence": 0.9978,
+            "answer_confidence": 0.9978,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.2128,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0507,
+              "1": 0.6858,
+              "2": 0.2635
+            },
+            "confidence": 0.3071,
+            "answer_confidence": 0.6858,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 178,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a cup of coffee on a wooden table",
+          "model_id": null,
+          "state": "Image description: a cup of coffee on a wooden table",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.08187489584088326,
+            "caption": 0.0012079253792762756,
+            "laya": 31.875583110377192,
+            "total": 31.958665931597352
+          }
+        }
+      },
+      "mismatch_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": false,
+          "animal": true,
+          "people": true
+        }
+      },
+      "no_visual_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.4588,
+              "animal": 0.0273,
+              "food": 0.0566,
+              "other": 0.4574
+            },
+            "confidence": 0.296,
+            "answer_confidence": 0.4588,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0665,
+            "confidence": 0.9335,
+            "answer_confidence": 0.9335,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0043,
+            "confidence": 0.9957,
+            "answer_confidence": 0.9957,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1045,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0794,
+              "1": 0.7366,
+              "2": 0.1839
+            },
+            "confidence": 0.3285,
+            "answer_confidence": 0.7366,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 170,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "No visual description is available.",
+          "model_id": null,
+          "state": "Image description: No visual description is available.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 512,
+            "height": 512,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.07595797069370747,
+            "caption": 0.0010421499609947205,
+            "laya": 30.751457903534174,
+            "total": 30.828458024188876
+          }
+        }
+      },
+      "no_visual_score": {
+        "expected": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "predicted": {
+          "category": "person",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": false,
+          "animal": true,
+          "people": true
+        }
+      }
+    },
+    {
+      "image": "chelsea.png",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "animal",
+            "probabilities": {
+              "person": 0.0003,
+              "animal": 0.999,
+              "food": 0.0002,
+              "other": 0.0005
+            },
+            "confidence": 0.9933,
+            "answer_confidence": 0.999,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.4445,
+            "confidence": 0.5555,
+            "answer_confidence": 0.5555,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.9573,
+            "confidence": 0.9573,
+            "answer_confidence": 0.9573,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1155,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.106,
+              "1": 0.6726,
+              "2": 0.2214
+            },
+            "confidence": 0.2368,
+            "answer_confidence": 0.6726,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 166,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a cat with green eyes",
+          "model_id": "./downloads/vision-models/blip",
+          "state": "Image description: a cat with green eyes",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "autoregressive",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 451,
+            "height": 300,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 3.9639160968363285,
+            "caption": 162.80074999667704,
+            "laya": 34.285166999325156,
+            "total": 201.04983309283853
+          }
+        }
+      },
+      "vision_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": false
+        }
+      },
+      "oracle_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "animal",
+            "probabilities": {
+              "person": 0.0144,
+              "animal": 0.9812,
+              "food": 0.0004,
+              "other": 0.004
+            },
+            "confidence": 0.9243,
+            "answer_confidence": 0.9812,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0445,
+            "confidence": 0.9555,
+            "answer_confidence": 0.9555,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.128,
+            "confidence": 0.872,
+            "answer_confidence": 0.872,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.3553,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0348,
+              "1": 0.5751,
+              "2": 0.3901
+            },
+            "confidence": 0.2697,
+            "answer_confidence": 0.5751,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 194,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "A close-up photograph of a tabby cat lying down.",
+          "model_id": null,
+          "state": "Image description: A close-up photograph of a tabby cat lying down.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 451,
+            "height": 300,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 3.77204199321568,
+            "caption": 0.0007918570190668106,
+            "laya": 31.808541156351566,
+            "total": 35.58137500658631
+          }
+        }
+      },
+      "oracle_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "animal",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": false,
+          "people": false
+        }
+      },
+      "mismatch_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "animal",
+            "probabilities": {
+              "person": 0.0032,
+              "animal": 0.9961,
+              "food": 0.0001,
+              "other": 0.0005
+            },
+            "confidence": 0.9802,
+            "answer_confidence": 0.9961,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.308,
+            "confidence": 0.692,
+            "answer_confidence": 0.692,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.8153,
+            "confidence": 0.8153,
+            "answer_confidence": 0.8153,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.5147,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0357,
+              "1": 0.4139,
+              "2": 0.5504
+            },
+            "confidence": 0.2603,
+            "answer_confidence": 0.5504,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 182,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a horse silhouetted on a white background",
+          "model_id": null,
+          "state": "Image description: a horse silhouetted on a white background",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 451,
+            "height": 300,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.07212487980723381,
+            "caption": 0.001291045919060707,
+            "laya": 30.58608411811292,
+            "total": 30.659500043839216
+          }
+        }
+      },
+      "mismatch_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 2
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": false
+        }
+      },
+      "no_visual_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.4588,
+              "animal": 0.0273,
+              "food": 0.0566,
+              "other": 0.4574
+            },
+            "confidence": 0.296,
+            "answer_confidence": 0.4588,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0665,
+            "confidence": 0.9335,
+            "answer_confidence": 0.9335,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0043,
+            "confidence": 0.9957,
+            "answer_confidence": 0.9957,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1045,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0794,
+              "1": 0.7366,
+              "2": 0.1839
+            },
+            "confidence": 0.3285,
+            "answer_confidence": 0.7366,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 170,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "No visual description is available.",
+          "model_id": null,
+          "state": "Image description: No visual description is available.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 451,
+            "height": 300,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.06166589446365833,
+            "caption": 0.001084059476852417,
+            "laya": 29.853415908291936,
+            "total": 29.916165862232447
+          }
+        }
+      },
+      "no_visual_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "person",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": true,
+          "animal": false,
+          "people": false
+        }
+      }
+    },
+    {
+      "image": "coffee.png",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "food",
+            "probabilities": {
+              "person": 0.0004,
+              "animal": 0.0004,
+              "food": 0.9945,
+              "other": 0.0048
+            },
+            "confidence": 0.9734,
+            "answer_confidence": 0.9945,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0167,
+            "confidence": 0.9833,
+            "answer_confidence": 0.9833,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0022,
+            "confidence": 0.9978,
+            "answer_confidence": 0.9978,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.2128,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0507,
+              "1": 0.6858,
+              "2": 0.2635
+            },
+            "confidence": 0.3071,
+            "answer_confidence": 0.6858,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 178,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a cup of coffee on a wooden table",
+          "model_id": "./downloads/vision-models/blip",
+          "state": "Image description: a cup of coffee on a wooden table",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "autoregressive",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 600,
+            "height": 400,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 5.157291190698743,
+            "caption": 199.65712493285537,
+            "laya": 38.92737487331033,
+            "total": 243.74179099686444
+          }
+        }
+      },
+      "vision_score": {
+        "expected": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 0
+        },
+        "predicted": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": false
+        }
+      },
+      "oracle_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "food",
+            "probabilities": {
+              "person": 0.0002,
+              "animal": 0.0002,
+              "food": 0.9969,
+              "other": 0.0027
+            },
+            "confidence": 0.9839,
+            "answer_confidence": 0.9969,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0196,
+            "confidence": 0.9804,
+            "answer_confidence": 0.9804,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.002,
+            "confidence": 0.998,
+            "answer_confidence": 0.998,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.0337,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0949,
+              "1": 0.7765,
+              "2": 0.1286
+            },
+            "confidence": 0.3777,
+            "answer_confidence": 0.7765,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "A cup of coffee on a saucer on a table.",
+          "model_id": null,
+          "state": "Image description: A cup of coffee on a saucer on a table.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 600,
+            "height": 400,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 4.598292056471109,
+            "caption": 0.0007499475032091141,
+            "laya": 32.38066588528454,
+            "total": 36.97970788925886
+          }
+        }
+      },
+      "oracle_score": {
+        "expected": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 0
+        },
+        "predicted": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": false
+        }
+      },
+      "mismatch_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.997,
+              "animal": 0.0006,
+              "food": 0.0002,
+              "other": 0.0022
+            },
+            "confidence": 0.9835,
+            "answer_confidence": 0.997,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.839,
+            "confidence": 0.839,
+            "answer_confidence": 0.839,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0332,
+            "confidence": 0.9668,
+            "answer_confidence": 0.9668,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.4322,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0205,
+              "1": 0.5267,
+              "2": 0.4527
+            },
+            "confidence": 0.2934,
+            "answer_confidence": 0.5267,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a young man in an orange space suit holding a helmet",
+          "model_id": null,
+          "state": "Image description: a young man in an orange space suit holding a helmet",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 600,
+            "height": 400,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.08395896293222904,
+            "caption": 0.001166015863418579,
+            "laya": 30.77887510880828,
+            "total": 30.864000087603927
+          }
+        }
+      },
+      "mismatch_score": {
+        "expected": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 0
+        },
+        "predicted": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": false,
+          "animal": true,
+          "people": false
+        }
+      },
+      "no_visual_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.4588,
+              "animal": 0.0273,
+              "food": 0.0566,
+              "other": 0.4574
+            },
+            "confidence": 0.296,
+            "answer_confidence": 0.4588,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0665,
+            "confidence": 0.9335,
+            "answer_confidence": 0.9335,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0043,
+            "confidence": 0.9957,
+            "answer_confidence": 0.9957,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1045,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0794,
+              "1": 0.7366,
+              "2": 0.1839
+            },
+            "confidence": 0.3285,
+            "answer_confidence": 0.7366,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 170,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "No visual description is available.",
+          "model_id": null,
+          "state": "Image description: No visual description is available.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 600,
+            "height": 400,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.07191603071987629,
+            "caption": 0.00100000761449337,
+            "laya": 29.77733383886516,
+            "total": 29.85024987719953
+          }
+        }
+      },
+      "no_visual_score": {
+        "expected": {
+          "category": "food",
+          "person": false,
+          "animal": false,
+          "people": 0
+        },
+        "predicted": {
+          "category": "person",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": true,
+          "animal": true,
+          "people": false
+        }
+      }
+    },
+    {
+      "image": "horse.png",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "animal",
+            "probabilities": {
+              "person": 0.0032,
+              "animal": 0.9961,
+              "food": 0.0001,
+              "other": 0.0005
+            },
+            "confidence": 0.9802,
+            "answer_confidence": 0.9961,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.308,
+            "confidence": 0.692,
+            "answer_confidence": 0.692,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.8153,
+            "confidence": 0.8153,
+            "answer_confidence": 0.8153,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.5147,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0357,
+              "1": 0.4139,
+              "2": 0.5504
+            },
+            "confidence": 0.2603,
+            "answer_confidence": 0.5504,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 182,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a horse silhouetted on a white background",
+          "model_id": "./downloads/vision-models/blip",
+          "state": "Image description: a horse silhouetted on a white background",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "autoregressive",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 400,
+            "height": 328,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.9322499390691519,
+            "caption": 204.42333398386836,
+            "laya": 43.976749991998076,
+            "total": 249.3323339149356
+          }
+        }
+      },
+      "vision_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 2
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": true,
+          "people": false
+        }
+      },
+      "oracle_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "animal",
+            "probabilities": {
+              "person": 0.004,
+              "animal": 0.9943,
+              "food": 0.0003,
+              "other": 0.0014
+            },
+            "confidence": 0.9715,
+            "answer_confidence": 0.9943,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0579,
+            "confidence": 0.9421,
+            "answer_confidence": 0.9421,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.4287,
+            "confidence": 0.5713,
+            "answer_confidence": 0.5713,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.4615,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0416,
+              "1": 0.4553,
+              "2": 0.5031
+            },
+            "confidence": 0.2389,
+            "answer_confidence": 0.5031,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "A black silhouette of a horse on a white background.",
+          "model_id": null,
+          "state": "Image description: A black silhouette of a horse on a white background.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 400,
+            "height": 328,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.6425839383155107,
+            "caption": 0.0007499475032091141,
+            "laya": 30.847041169181466,
+            "total": 31.490375055000186
+          }
+        }
+      },
+      "oracle_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "animal",
+          "person": false,
+          "animal": false,
+          "people": 2
+        },
+        "correct": {
+          "category": true,
+          "person": true,
+          "animal": false,
+          "people": false
+        }
+      },
+      "mismatch_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.9913,
+              "animal": 0.0013,
+              "food": 0.0007,
+              "other": 0.0066
+            },
+            "confidence": 0.9597,
+            "answer_confidence": 0.9913,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.6997,
+            "confidence": 0.6997,
+            "answer_confidence": 0.6997,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0031,
+            "confidence": 0.9969,
+            "answer_confidence": 0.9969,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.3286,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0589,
+              "1": 0.5536,
+              "2": 0.3875
+            },
+            "confidence": 0.2159,
+            "answer_confidence": 0.5536,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "a man in a suit taking a picture of a building",
+          "model_id": null,
+          "state": "Image description: a man in a suit taking a picture of a building",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 400,
+            "height": 328,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.060582999140024185,
+            "caption": 0.0009168870747089386,
+            "laya": 30.679416144266725,
+            "total": 30.740916030481458
+          }
+        }
+      },
+      "mismatch_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "person",
+          "person": true,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": false,
+          "animal": false,
+          "people": false
+        }
+      },
+      "no_visual_result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "category": {
+            "type": "choice",
+            "choice": "person",
+            "probabilities": {
+              "person": 0.4588,
+              "animal": 0.0273,
+              "food": 0.0566,
+              "other": 0.4574
+            },
+            "confidence": 0.296,
+            "answer_confidence": 0.4588,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "person": {
+            "type": "noul",
+            "noul": 0.0665,
+            "confidence": 0.9335,
+            "answer_confidence": 0.9335,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "animal": {
+            "type": "noul",
+            "noul": 0.0043,
+            "confidence": 0.9957,
+            "answer_confidence": 0.9957,
+            "action": {
+              "act_probability": 1.0
+            }
+          },
+          "people": {
+            "type": "score",
+            "score": 1.1045,
+            "legend": {
+              "0": "没有人",
+              "1": "一个人",
+              "2": "两个人或更多人"
+            },
+            "probabilities": {
+              "0": 0.0794,
+              "1": 0.7366,
+              "2": 0.1839
+            },
+            "confidence": 0.3285,
+            "answer_confidence": 0.7366,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 170,
+          "output_tokens": 0
+        },
+        "vision": {
+          "mode": "caption_bridge",
+          "caption": "No visual description is available.",
+          "model_id": null,
+          "state": "Image description: No visual description is available.",
+          "probability_scope": "text_surrogate_only",
+          "caption_generation": "unspecified",
+          "end_to_end_single_pass": false,
+          "usage_scope": "laya_text_stage_only",
+          "image": {
+            "width": 400,
+            "height": 328,
+            "mode": "RGB"
+          },
+          "timings_ms": {
+            "image_prepare": 0.06066705100238323,
+            "caption": 0.00100000761449337,
+            "laya": 29.808750143274665,
+            "total": 29.87041720189154
+          }
+        }
+      },
+      "no_visual_score": {
+        "expected": {
+          "category": "animal",
+          "person": false,
+          "animal": true,
+          "people": 0
+        },
+        "predicted": {
+          "category": "person",
+          "person": false,
+          "animal": false,
+          "people": 1
+        },
+        "correct": {
+          "category": false,
+          "person": true,
+          "animal": false,
+          "people": false
+        }
+      }
+    }
+  ]
+}

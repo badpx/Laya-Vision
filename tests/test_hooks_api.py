@@ -82,6 +82,27 @@ for label, fn in (("Agent.predict_batch", Agent.predict_batch),
 
 check_param("Agent.predict_batch", Agent.predict_batch, "batch_size", None)
 
+# Optional local image-to-text bridge. Importing its surface does not load BLIP.
+from laya import BlipCaptioner, VisionAgent  # noqa: E402
+
+check("VisionAgent.__init__ parameters", list(sig(VisionAgent.__init__)), ["self", "agent", "captioner"])
+check_param("VisionAgent.__init__", VisionAgent.__init__, "agent", inspect.Parameter.empty)
+check_param("VisionAgent.__init__", VisionAgent.__init__, "captioner", None)
+check("VisionAgent.predict parameters", list(sig(VisionAgent.predict)),
+      ["self", "image", "questions", "state", "predict_kwargs"])
+for name in ("image", "questions"):
+    check_param("VisionAgent.predict", VisionAgent.predict, name, inspect.Parameter.empty,
+                inspect.Parameter.POSITIONAL_OR_KEYWORD)
+check_param("VisionAgent.predict", VisionAgent.predict, "state", None, inspect.Parameter.KEYWORD_ONLY)
+check_param("VisionAgent.predict", VisionAgent.predict, "predict_kwargs", inspect.Parameter.empty,
+            inspect.Parameter.VAR_KEYWORD)
+check("BlipCaptioner.__init__ parameters", list(sig(BlipCaptioner.__init__)),
+      ["self", "model_id_or_path", "device", "revision", "local_files_only", "max_new_tokens"])
+for name, default in (("model_id_or_path", "Salesforce/blip-image-captioning-base"), ("device", None),
+                      ("revision", None), ("local_files_only", False), ("max_new_tokens", 48)):
+    check_param("BlipCaptioner.__init__", BlipCaptioner.__init__, name, default)
+check("BlipCaptioner.__call__ parameters", list(sig(BlipCaptioner.__call__)), ["self", "image"])
+
 # per-call token-budget overrides
 for label, fn in (("Agent.predict_batch", Agent.predict_batch),
                   ("Agent.system_one", Agent.system_one),
@@ -123,7 +144,7 @@ for event in HOOK_EVENTS:
 check_true("PredictHook is callable-typed", callable(PredictHook))
 
 # --------------------------------------------------------------- exports
-for name in ("PredictContext", "PredictHook", "Hook", "BaseHook", "AsyncHook"):
+for name in ("PredictContext", "PredictHook", "Hook", "BaseHook", "AsyncHook", "VisionAgent", "BlipCaptioner"):
     check_true("__all__/%s" % name, name in laya.__all__)
     check_true("laya.%s exists" % name, hasattr(laya, name))
 check_true("laya.hooks/run_coroutine_sync exists",

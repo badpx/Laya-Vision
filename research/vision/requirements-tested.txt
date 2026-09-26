@@ -1,0 +1,10 @@
+# Python 3.12.11 / macOS arm64; install the checkout separately with -e '.[vision]'.
+torch==2.14.0
+torchvision==0.29.0
+transformers==5.17.0
+huggingface_hub==1.33.0
+safetensors==0.8.0
+numpy==2.5.3
+pillow==12.3.0
+pytest==9.1.1
+ruff==0.16.8

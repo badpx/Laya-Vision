@@ -40,6 +40,8 @@ _LAZY_ATTRS = {
     "LayaGuardrailError": (".integrations", "LayaGuardrailError"),
     "LayaTriage": (".integrations", "LayaTriage"),
     "LayaEvaluator": (".integrations", "LayaEvaluator"),
+    "VisionAgent": (".vision", "VisionAgent"),
+    "BlipCaptioner": (".vision", "BlipCaptioner"),
 }
 
 
@@ -93,6 +95,8 @@ __all__ = [
     "LayaGuardrailError",
     "LayaTriage",
     "LayaEvaluator",
+    "VisionAgent",
+    "BlipCaptioner",
     "PredictContext",
     "PredictHook",
     "Hook",

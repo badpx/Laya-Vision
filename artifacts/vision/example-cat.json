@@ -1,0 +1,54 @@
+{
+  "model": "laya-rl-agent",
+  "answers": {
+    "subject": {
+      "type": "choice",
+      "choice": "animal",
+      "probabilities": {
+        "person": 0.0,
+        "animal": 0.9999,
+        "food": 0.0,
+        "other": 0.0001
+      },
+      "confidence": 0.999,
+      "answer_confidence": 0.9999,
+      "action": {
+        "act_probability": 1.0
+      }
+    },
+    "person_present": {
+      "type": "noul",
+      "noul": 0.1217,
+      "confidence": 0.8783,
+      "answer_confidence": 0.8783,
+      "action": {
+        "act_probability": 1.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 88,
+    "output_tokens": 0
+  },
+  "vision": {
+    "mode": "caption_bridge",
+    "caption": "a cat with green eyes",
+    "model_id": "./downloads/vision-models/blip",
+    "state": "Image description: a cat with green eyes",
+    "probability_scope": "text_surrogate_only",
+    "caption_generation": "autoregressive",
+    "end_to_end_single_pass": false,
+    "usage_scope": "laya_text_stage_only",
+    "image": {
+      "width": 451,
+      "height": 300,
+      "mode": "RGB"
+    },
+    "timings_ms": {
+      "image_prepare": 4.987334134057164,
+      "caption": 810.8541660476476,
+      "laya": 326.4501669909805,
+      "total": 1142.2916671726853
+    }
+  }
+}

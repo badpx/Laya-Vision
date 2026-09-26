@@ -1,0 +1,19 @@
+{
+  "unit_and_regression_tests": {
+    "vision_tests": 35,
+    "hooks_api_contract": 154,
+    "router": 546,
+    "criteria": 139,
+    "hooks": 162,
+    "training_helpers": 61
+  },
+  "total_assertions_or_pytest_cases": 1097,
+  "gates": {
+    "ruff": "passed",
+    "compileall": "passed",
+    "git_diff_check": "passed",
+    "docs_strict_build": "passed"
+  },
+  "real_outputs_validated": 240,
+  "note": "Script assertion counts and pytest cases are different units; no full upstream suite was run."
+}

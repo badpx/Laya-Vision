@@ -1,0 +1,382 @@
+{
+  "scope": "5 detail probes and 2 context-switch probes; captions reused from main evaluation.",
+  "device": "mps",
+  "detail_correct": 3,
+  "oracle_correct": 5,
+  "mixed_context_correct": 2,
+  "cases": [
+    {
+      "image": "astronaut.png",
+      "state": "Image description: a young man in an orange space suit holding a helmet",
+      "questions": {
+        "detail": {
+          "type": "choice",
+          "instructions": "What color is the astronaut suit?",
+          "criteria": {
+            "orange": "orange",
+            "white": "white",
+            "blue": "blue"
+          }
+        }
+      },
+      "expected": "orange",
+      "bridge": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "orange",
+            "probabilities": {
+              "orange": 0.9824,
+              "white": 0.0092,
+              "blue": 0.0084
+            },
+            "confidence": 0.9083,
+            "answer_confidence": 0.9824,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 40,
+          "output_tokens": 0
+        }
+      },
+      "oracle": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "orange",
+            "probabilities": {
+              "orange": 0.9997,
+              "white": 0.0002,
+              "blue": 0.0001
+            },
+            "confidence": 0.9974,
+            "answer_confidence": 0.9997,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 41,
+          "output_tokens": 0
+        }
+      },
+      "bridge_correct": true,
+      "oracle_correct": true
+    },
+    {
+      "image": "camera.png",
+      "state": "Image description: a man in a suit taking a picture of a building",
+      "questions": {
+        "detail": {
+          "type": "choice",
+          "instructions": "What supports the camera?",
+          "criteria": {
+            "tripod": "a tripod",
+            "hands": "held only by hands",
+            "table": "a table"
+          }
+        }
+      },
+      "expected": "tripod",
+      "bridge": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "hands",
+            "probabilities": {
+              "tripod": 0.1104,
+              "hands": 0.8843,
+              "table": 0.0053
+            },
+            "confidence": 0.6543,
+            "answer_confidence": 0.8843,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 43,
+          "output_tokens": 0
+        }
+      },
+      "oracle": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "tripod",
+            "probabilities": {
+              "tripod": 0.9898,
+              "hands": 0.0096,
+              "table": 0.0006
+            },
+            "confidence": 0.9459,
+            "answer_confidence": 0.9898,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 43,
+          "output_tokens": 0
+        }
+      },
+      "bridge_correct": false,
+      "oracle_correct": true
+    },
+    {
+      "image": "chelsea.png",
+      "state": "Image description: a cat with green eyes",
+      "questions": {
+        "detail": {
+          "type": "choice",
+          "instructions": "What color are the cat's eyes?",
+          "criteria": {
+            "green": "green",
+            "blue": "blue",
+            "red": "red"
+          }
+        }
+      },
+      "expected": "green",
+      "bridge": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "green",
+            "probabilities": {
+              "green": 0.9986,
+              "blue": 0.0005,
+              "red": 0.0009
+            },
+            "confidence": 0.9896,
+            "answer_confidence": 0.9986,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 36,
+          "output_tokens": 0
+        }
+      },
+      "oracle": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "green",
+            "probabilities": {
+              "green": 0.9988,
+              "blue": 0.0005,
+              "red": 0.0007
+            },
+            "confidence": 0.991,
+            "answer_confidence": 0.9988,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 38,
+          "output_tokens": 0
+        }
+      },
+      "bridge_correct": true,
+      "oracle_correct": true
+    },
+    {
+      "image": "coffee.png",
+      "state": "Image description: a cup of coffee on a wooden table",
+      "questions": {
+        "detail": {
+          "type": "choice",
+          "instructions": "What color is the outside of the coffee cup?",
+          "criteria": {
+            "red": "red or reddish brown",
+            "white": "white",
+            "blue": "blue"
+          }
+        }
+      },
+      "expected": "red",
+      "bridge": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "white",
+            "probabilities": {
+              "red": 0.4191,
+              "white": 0.4451,
+              "blue": 0.1357
+            },
+            "confidence": 0.0936,
+            "answer_confidence": 0.4451,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 43,
+          "output_tokens": 0
+        }
+      },
+      "oracle": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "red",
+            "probabilities": {
+              "red": 0.9857,
+              "white": 0.0137,
+              "blue": 0.0006
+            },
+            "confidence": 0.9293,
+            "answer_confidence": 0.9857,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 53,
+          "output_tokens": 0
+        }
+      },
+      "bridge_correct": false,
+      "oracle_correct": true
+    },
+    {
+      "image": "horse.png",
+      "state": "Image description: a horse silhouetted on a white background",
+      "questions": {
+        "detail": {
+          "type": "choice",
+          "instructions": "Which way is the horse facing?",
+          "criteria": {
+            "left": "toward the left side of the image",
+            "right": "toward the right side of the image"
+          }
+        }
+      },
+      "expected": "right",
+      "bridge": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "right",
+            "probabilities": {
+              "left": 0.4174,
+              "right": 0.5826
+            },
+            "confidence": 0.0198,
+            "answer_confidence": 0.5826,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 46,
+          "output_tokens": 0
+        }
+      },
+      "oracle": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "detail": {
+            "type": "choice",
+            "choice": "right",
+            "probabilities": {
+              "left": 0.0056,
+              "right": 0.9944
+            },
+            "confidence": 0.9504,
+            "answer_confidence": 0.9944,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 51,
+          "output_tokens": 0
+        }
+      },
+      "bridge_correct": true,
+      "oracle_correct": true
+    }
+  ],
+  "mixed_context": [
+    {
+      "state": "Image description: a cat with green eyes\n\nAdditional context:\nImages of animals belong in queue alpha. All other images belong in queue beta.",
+      "expected": "alpha",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "queue": {
+            "type": "choice",
+            "choice": "alpha",
+            "probabilities": {
+              "alpha": 0.9381,
+              "beta": 0.0619
+            },
+            "confidence": 0.665,
+            "answer_confidence": 0.9381,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 59,
+          "output_tokens": 0
+        }
+      },
+      "correct": true
+    },
+    {
+      "state": "Image description: a cat with green eyes\n\nAdditional context:\nImages of animals belong in queue beta. All other images belong in queue alpha.",
+      "expected": "beta",
+      "result": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "queue": {
+            "type": "choice",
+            "choice": "beta",
+            "probabilities": {
+              "alpha": 0.0154,
+              "beta": 0.9846
+            },
+            "confidence": 0.8853,
+            "answer_confidence": 0.9846,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 59,
+          "output_tokens": 0
+        }
+      },
+      "correct": true
+    }
+  ]
+}

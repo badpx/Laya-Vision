@@ -54,6 +54,9 @@ structured = ["pydantic>=2.0.0"]
 
 onnx = ["onnx", "onnxruntime"]
 
+# `pip install laya[vision]` adds the local BLIP image-caption bridge.
+vision = ["pillow>=10.0.0", "torchvision", "torch>=2.6.0"]
+
 # `pip install laya[langchain]` adds the LangChain / LangGraph integrations (laya.integrations).
 langchain = [
     "langchain-core>=0.2.0",
