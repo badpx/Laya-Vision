@@ -1,0 +1,67 @@
+{
+  "scope": "Exact meta parameter counts; no pretrained vision weights, forward, training or benchmark.",
+  "environment": {
+    "torch": "2.14.0",
+    "transformers": "5.17.0"
+  },
+  "architecture": {
+    "text": "Existing multilingual Laya: mmBERT-base plus original decision modules",
+    "vision": "google/siglip2-base-patch16-384 dense tower; MAP pooling head excluded",
+    "vision_config_source": "https://huggingface.co/google/siglip2-base-patch16-384/blob/main/config.json",
+    "vision_tokens": 576,
+    "hidden_size": 768,
+    "projector": "LayerNorm(768, affine) -> Linear(768,768,bias) -> GELU -> Linear(768,768,bias)",
+    "fusion": "Two blocks, each full-width 12-head MHA with biases, one affine LayerNorm and scalar gate; no FFN",
+    "excluded_additions": "No extra trainable modality/position embeddings, tile embeddings, LoRA or auxiliary heads"
+  },
+  "counts": {
+    "old_laya_parameters": 321908995,
+    "old_laya_persistent_buffer_elements": 3,
+    "vision_with_pooling_parameters": 93176064,
+    "removed_pooling_parameters": 7087104,
+    "vision_dense_tower_parameters": 86088960,
+    "projector_parameters": 1182720,
+    "two_cross_attention_parameters": 4727810,
+    "new_trainable_parameters": 5910530,
+    "total_parameters": 413908485,
+    "total_parameters_plus_persistent_buffers": 413908488
+  },
+  "old_laya_parameter_groups": {
+    "act_head": 198402,
+    "encoder": 306939648,
+    "head": 14175744,
+    "scorer": 592897,
+    "type_emb": 2304
+  },
+  "old_laya_persistent_buffers": {
+    "temperature": 3
+  },
+  "local_checkpoint_header_audit": {
+    "status": "matched",
+    "tensor_payload_read": false,
+    "tensor_elements_by_prefix": {
+      "act_head": 198402,
+      "encoder": 306939648,
+      "head": 14175744,
+      "scorer": 592897,
+      "temperature": 3,
+      "type_emb": 2304
+    }
+  },
+  "trainable_stages": {
+    "stage_1_projector_and_cross_attention": 5910530,
+    "stage_2_add_original_head_and_scorer": 20679171,
+    "stage_2_frozen_original_modules": [
+      "encoder",
+      "type_emb",
+      "act_head"
+    ],
+    "act_head_policy": "Remains frozen unless an explicit supervised action objective is added."
+  },
+  "checks": {
+    "all_model_parameters_on_meta": true,
+    "counts_match_explicit_expected_values": true,
+    "projector_formula_matches": true,
+    "cross_attention_formula_matches": true
+  }
+}

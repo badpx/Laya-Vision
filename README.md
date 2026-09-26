@@ -92,6 +92,8 @@ The shipped checkpoints work zero-shot, but fine-tuning on decisions from your o
 
 **[Local image decisions](docs/vision.md):** use BLIP descriptions as input to Laya with `VisionAgent`, including offline setup and the caption bridge's probability and token-budget limits.
 
+**[Native multimodal research plan (中文)](research/vision/NATIVE_MULTIMODAL_PLAN.zh-CN.md):** proposed patch-level fusion, training stages, data and evaluation protocol. Native training is not implemented yet; see the [new-machine handoff](research/vision/HANDOFF.zh-CN.md) to continue development.
+
 ## What's new in 0.3.20
 
 * **Long documents with `max_len=8192`.** A measured table below Installation shows accuracy and time for `laya-multilingual` by document length, from a reproducible benchmark: strong up to about 4,000 tokens of text, more variable beyond.

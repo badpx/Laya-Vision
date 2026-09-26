@@ -4,6 +4,8 @@
 
 历史评测 JSON 中本机仓库的绝对路径前缀已统一为 `./`，预测值与耗时保持原测量记录。
 
+针对 caption 丢失细节的后续研究见 [原生多模态训练方案](NATIVE_MULTIMODAL_PLAN.zh-CN.md)：包含网络结构、数据、分阶段训练、公平对照、算力估算及可复现参数审计。该方案尚未训练，不能把本页的桥接实测视作原生模型结果。换设备后请从 [接续说明](HANDOFF.zh-CN.md) 恢复环境与基线。
+
 ## 实施范围
 
 已新增 `laya.VisionAgent` 和 `laya.BlipCaptioner`。流程为：本地图片像素 → BLIP 图像描述 → 描述加可选业务文本 → 原有 Laya → `choice` / `noul` / `score`。
